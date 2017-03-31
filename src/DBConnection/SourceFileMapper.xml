@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.ISourceFileOperation">
+
+	<!-- CRUD -->
+	<resultMap type="Model.SourceFile" id="resultListSourceFile">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="package_id" property="package_id" />
+	</resultMap>
+	
+	
+	<select id="getByID" parameterType="int" resultType="Model.SourceFile">
+		select *
+		from SourceFile where id=#{id}
+	</select>
+	<select id="getAll" resultMap="resultListSourceFile">
+		select * from SourceFile
+	</select>
+	
+	 <insert id="insert" parameterType="Model.SourceFile" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into SourceFile(name,package_id)  
+             values(#{name},#{package_id})
+    </insert>
+    
+    <update id="update" parameterType="Model.SourceFile" >
+        update SourceFile set name=#{name},package_id=#{package_id} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from SourceFile where id=#{id}
+    </delete>
+    
+    <!-- Extra -->
+</mapper>

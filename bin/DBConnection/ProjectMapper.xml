@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.IProjectOperation">
+
+	<resultMap type="Model.Project" id="resultListProject">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="source" property="source" />
+	</resultMap>
+	
+		<!-- basic operation -->
+	
+	<select id="getByID" parameterType="int" resultType="Model.Project">
+		select *
+		from Project where id=#{id}
+	</select>
+	<select id="getAll" resultMap="resultListProject">
+		select * from Project
+	</select>
+	
+	 <insert id="insert" parameterType="Model.Project" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into Project(name,source)  
+             values(#{name},#{source})
+    </insert>
+    
+    <update id="update" parameterType="Model.Project" >
+        update Project set name=#{name},source=#{source} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from Project where id=#{id}
+    </delete>
+</mapper>

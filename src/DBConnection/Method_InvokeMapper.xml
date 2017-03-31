@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.ITMethod_InvokeOperation">
+
+	<resultMap type="Model.Method_Invoke" id="resultListMethod_Invoke">
+		<id column="invoker_id" property="invoker_id" />
+		<id column="method_id" property="method_id" />
+	</resultMap>
+	
+	<!-- basic operation -->
+	
+	<select id="getByInvokerId" parameterType="int" resultMap="resultListMethod_Invoke">
+		select *
+		from Method_Invoke
+		where invoker_id=#{invoker_id}
+	</select>
+	
+		<select id="getByMethodId" parameterType="int" resultMap="resultListMethod_Invoke">
+		select *
+		from Method_Invoke
+		where method_id=#{method_id}
+	</select>
+	
+	<select id="getAll" resultMap="resultListMethod_Invoke">
+		select *
+		from Method_Invoke
+	</select>
+	
+	<insert id="insert" parameterType="Model.Method_Invoke" >
+        insert into Method_Invoke(invoker_id,method_id)  
+             values(#{invoker_id},#{method_id})
+    </insert>
+	
+	<delete id="deleteByInvokerId" parameterType="Model.Method_Invoke">
+		delete from Method_Invoke
+		where invoker_id=#{invoker_id}
+	</delete>
+	
+	<delete id="deleteByMethodId" parameterType="Model.Method_Invoke">
+		delete from Method_Invoke
+		where method_id=#{method_id}
+	</delete>
+	 
+</mapper>

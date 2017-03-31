@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.IFuncTagOperation">
+
+	<resultMap type="Model.FunctionalTag" id="resultListFunctionalTag">
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+	</resultMap>
+	<resultMap type="Model.Class" id="resultListFunctionalClass">
+		<id column="id" property="id" />
+	    <result column="name" property="name" />
+		<result column="language" property="language" />
+		<result column="file_id" property="file_id" />
+		<result column="content" property="content" />
+	</resultMap>
+	
+						<!-- basic operation -->
+	
+	<select id="getByID" parameterType="int" resultType="Model.FunctionalTag">
+		select *
+		from FunctionalTag where id=#{id}
+	</select>
+	<select id="getAll" resultMap="resultListFunctionalTag">
+		select * from FunctionalTag
+	</select>
+	
+	 <insert id="insert" parameterType="Model.FunctionalTag" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into FunctionalTag(type)  
+             values(#{type})
+    </insert>
+    
+    <update id="update" parameterType="Model.FunctionalTag" >
+        update FunctionalTag set type=#{type} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from FunctionalTag where id=#{id}
+    </delete>
+    
+    						<!-- extra operation -->
+    <select id="getClassByTagType"  resultMap="resultListFunctionalClass">
+    	select c.id,c.name,c.language,c.file_id,c.content 
+    	from FunctionalTag as f,class as c,class_tag as c_t 
+    	where f.type=#{0} and f.id=c_t.func_tag_id and c.id=c_t.class_id  
+    	limit #{1},#{2}
+    </select>
+</mapper>

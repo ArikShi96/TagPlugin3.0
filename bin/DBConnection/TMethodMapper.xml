@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.ITMethodOperation">
+
+	<!-- CRUD -->
+	<resultMap type="Model.TMethod" id="resultListTMethod">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="owner" property="owner"/>
+		<result column="content" property="content" />
+	</resultMap>
+	
+	
+	<select id="getByID" parameterType="int" resultType="Model.TMethod">
+		select *
+		from TMethod where id=#{id}
+	</select>
+	<select id="getAll" resultMap="resultListTMethod">
+		select * from TMethod
+	</select>
+	
+	 <insert id="insert" parameterType="Model.TMethod" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into TMethod(name,owner,content)  
+             values(#{name},#{owner},#{content})
+    </insert>
+    
+    <update id="update" parameterType="Model.TMethod" >
+        update TMethod set name=#{name},owner=#{owner},content=#{content} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from TMethod where id=#{id}
+    </delete>
+    
+    <!-- Extra -->
+</mapper>

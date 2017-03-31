@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.IPackageOperation">
+
+	<!-- CRUD -->
+	<resultMap type="Model.Package" id="resultListPackage">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="parent_id" property="parent_id" />
+		<result column="isroot" property="isroot"/>
+	</resultMap>
+	
+	
+	<select id="getByID" parameterType="int" resultType="Model.Package">
+		select *
+		from Package where id=#{id}
+	</select>
+	<select id="getAll" resultMap="resultListPackage">
+		select * from Package
+	</select>
+	
+	 <insert id="insert" parameterType="Model.Package" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into Package(name,parent_id,isroot)  
+             values(#{name},#{parent_id},#{isroot})
+    </insert>
+    
+    <update id="update" parameterType="Model.Package" >
+        update Package set name=#{name},parent_id=#{parent_id},isroot=#{isroot} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from Package where id=#{id}
+    </delete>
+    
+    <!-- Extra -->
+</mapper>

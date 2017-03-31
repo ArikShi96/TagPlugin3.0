@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IOperation.IImoprt_InfoOperation">
+
+	<resultMap type="Model.Import_Info" id="resultListImport_Info">
+		<id column="id" property="id" />
+		<result column="keyword" property="keyword" />
+		<result column="tag_id" property="tag_id" />
+	</resultMap>
+	
+		<!-- basic operation -->
+	
+	<select id="getByID" parameterType="int" resultType="Model.Import_Info">
+		select *
+		from Import_Info where id=#{id}
+	</select>
+	<select id="getAll" resultMap="resultListImport_Info">
+		select * from Import_Info
+	</select>
+	
+	 <insert id="insert" parameterType="Model.Import_Info" 
+        useGeneratedKeys="true" keyProperty="id"> 
+        insert into Import_Info(id,keyword,tag_id)  
+             values(#{id},#{keyword},#{tag_id})
+    </insert>
+    
+    <update id="update" parameterType="Model.Import_Info" >
+        update Import_Info set keyword=#{keyword},tag_id=#{tag_id} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from Import_Info where id=#{id}
+    </delete>
+</mapper>
